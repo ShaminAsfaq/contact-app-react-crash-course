@@ -2,7 +2,10 @@ import React, {useState,useEffect} from 'react';
 import Header from './Header';
 import AddContact from './AddContact';
 import ContactList from './ContactList';
+import ContactDetails from './ContactDetails';
 import { uuid } from 'uuidv4';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 
 import '../styles/App.css';
 
@@ -34,11 +37,36 @@ function App() {
 
   return (
     <div className="ui container">
-      <Header/>
-      <div style={{paddingTop: '5%'}}>
-        <AddContact addContactHandler={addContactHandler} />
-        <ContactList contacts={contacts} removeContactHandler={removeContactHandler}/>
-      </div>
+
+      <Router>
+        <Header/>
+        <div style={{paddingTop: '5%'}}>
+          <Switch>
+            <Route 
+                path="/" 
+                exact
+                render = { (props) => (<ContactList 
+                                          {...props} 
+                                          contacts={contacts} 
+                                          removeContactHandler={removeContactHandler}
+                                        />)}
+              />
+
+              <Route 
+                path="/add" 
+                render = { (props) => (<AddContact 
+                                          {...props} 
+                                          addContactHandler={addContactHandler} 
+                                        />)}
+              />
+
+              <Route
+                path="/contact/:id"
+                component={ContactDetails}
+              />
+          </Switch>
+        </div>
+      </Router>
     
     </div>
   );
