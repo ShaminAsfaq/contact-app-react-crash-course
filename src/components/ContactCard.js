@@ -7,11 +7,20 @@ const ContactCard = (props) => {
     return (
         <div className="item">
             <div className="right floated content">
-                <div onClick={ () => props.removeContactHandler(id)} className="ui button">
+                <div style={{color:'red'}} onClick={ () => props.removeContactHandler(id)} className="ui button">
                     <i className="trash alternate outline icon"></i>
                     Delete
                 </div>
             </div>
+
+            <Link to={{ pathname: `/edit`, state: { contact: props.each } }}>
+                <div className="right floated content">
+                    <div style={{color:'blue'}} className="ui button">
+                        <i className="edit alternate outline icon"></i>
+                        Edit
+                    </div>
+                </div>
+            </Link>
             <img className="ui avatar image" src={ secondMaleImage } alt="usr"/>
             <div className="content">
                 <Link to={{ pathname: `/contact/${id}`, state: { contact: props.each } }}>
